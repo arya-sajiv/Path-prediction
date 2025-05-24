@@ -16,7 +16,28 @@ Each user trajectory is recorded as a .plt file, which stores a sequence of time
 The methodology of this project involves several stages, starting with data preprocessing. The .plt files are parsed to extract latitude and longitude values along with their corresponding timestamps, which are then combined into a single datetime object for analysis. The extracted coordinates are normalized to a 0 to 1 range using the MinMaxScaler to ensure consistency and improve model performance. Sequences are then created using a sliding window approach, where ten consecutive GPS points are used as input to predict the eleventh point. This transforms the data into a format suitable for training an LSTM model. 
 The model architecture consists of an input layer that receives sequences of GPS coordinates, followed by an LSTM layer with sixty-four units that processes the sequence data. A dense output layer then predicts the next GPS coordinate in the sequence. The model is compiled using the mean squared error as the loss function and the Adam optimizer for gradient descent. Training is conducted over twenty epochs with a batch size of thirty-two, and twenty percent of the data is reserved for validation to monitor the model’s generalization performance.
 
-## application 
+## How to install
+Download the GeoLife GPS Trajectories dataset given in the respiratory and give the path to the base_dir code
+Example: base_dir = r"C:\Users\nandh\Downloads\archive\Geolife Trajectories 1.3\Data"
+Then navigate through the GeoLife dataset directory structure, read GPS trajectory files for each user, and display the first few rows of the data. It is a foundational step for further analysis or processing of the trajectory data.
+
+Set up the necessary libraries for a project that likely involves data processing, normalization, visualization, and building a deep learning model using LSTM networks. Each library plays a crucial role in the workflow, from handling data to training and evaluating the model.
+
+The read_geolife_trajectory function is designed to read a GPS trajectory file, process the data by assigning column names, create a datetime representation of the trajectory points, and return a simplified DataFrame containing only the latitude, longitude, and datetime information. 
+
+Then the code processes GPS trajectory data from the GeoLife dataset for a limited number of users and files. It reads the trajectory files, filters out those with fewer than 20 points, and stores the latitude and longitude information in a list called trajectories. This approach allows for efficient data handling and prepares the data.
+
+Prepare the trajectory data for training a sequence prediction model. It normalizes the latitude and longitude coordinates, creates input sequences of a specified length, and generates corresponding output labels. The resulting arrays X and y are structured appropriately for use in training an LSTM model or other sequence-based machine learning algorithms.
+
+Build a straightforward LSTM neural network to predict the next GPS coordinate in a sequence. The model learns sequential dependencies in the trajectory data, making it useful for tasks such as path prediction using historical GPS points. By using an LSTM layer followed by a dense output layer, the model is trained with mean squared error loss to minimize the difference between predicted and actual coordinates over multiple epochs.
+
+Visually compares the predicted GPS trajectory points from the LSTM model against the actual observed points for a subset of data. By plotting both paths on the same graph after reversing the normalization, you can easily evaluate how well the model predicts future locations based on past trajectories.
+
+Take a predicted GPS point in its scaled form, reverses the scaling to obtain the original latitude and longitude values, and then prints these values. This is useful for interpreting the model's output in a meaningful way, allowing you to see the predicted next location in geographic coordinates.
+
+Evaluate the performance of the model's predictions by calculating and printing the Mean Absolute Error (MAE), Mean Squared Error (MSE), and Root Mean Squared Error (RMSE) for both latitude and longitude. These metrics provide insights into the accuracy of the model's predictions, with lower values indicating better performance.
+
+### Applications
 The implications of this project are wide-ranging 
 1. Enhanced Navigation Systems 
 The LSTM model can improve GPS navigation tools by predicting the user’s future path, allowing for dynamic route adjustments and more accurate Estimated Time of Arrival (ETA) calculations. 
